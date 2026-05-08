@@ -363,12 +363,11 @@
 
               await new Promise(r => setTimeout(r, 300));
 
-              // ★★★ [메모리 부족 원천차단] 화질 배율(scale)을 1로 제한하고 불필요한 노드를 DOM 복제 시 삭제합니다. ★★★
+              // ★★★ [메모리 부족 원천차단] 보안 충돌을 일으키는 allowTaint 옵션을 제거했습니다. ★★★
               const canvas = await window.html2canvas(targetElement, {
                 scale: 1, 
                 useCORS: true,
                 logging: false,
-                allowTaint: true,
                 backgroundColor: '#f3f4f6',
                 width: targetElement.offsetWidth,
                 windowWidth: document.documentElement.clientWidth,
@@ -422,6 +421,10 @@
               document.body.appendChild(link);
               link.click();
               document.body.removeChild(link);
+
+              // ★★★ [메모리 해제] 저장이 끝난 후 브라우저 메모리(RAM)에 남아있는 캔버스 데이터를 즉시 강제 소각합니다. ★★★
+              canvas.width = 0;
+              canvas.height = 0;
 
               setIsCapturing(false);
               showToast("Image saved successfully! 📸");
