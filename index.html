@@ -250,6 +250,21 @@
 
           const resultCardRef = useRef(null);
 
+          useEffect(() => {
+              // 1. 페이지 접속 시 틱톡 픽셀 등에 전달하기 위한 초기 로드 이벤트
+              pushToDataLayer('PageLoad');
+
+              // 2. 초기 스플래시 제거
+              const splash = document.getElementById('native-splash');
+              if (splash) {
+                  splash.style.opacity = '0';
+                  splash.style.transition = 'opacity 0.3s ease-out';
+                  setTimeout(() => {
+                      if (splash.parentNode) splash.parentNode.removeChild(splash);
+                  }, 300);
+              }
+          }, []);
+
           const handleStart = () => {
             setHasStarted(true);
             pushToDataLayer('StartTest');
@@ -335,10 +350,11 @@
 
               await new Promise(r => setTimeout(r, 300));
 
-              // ★★★ [메모리 부족 방지] 화질 배율을 3에서 1.5로 낮추어 모바일 기기 메모리 초과를 막습니다. ★★★
+              // ★★★ [메모리 부족 원천차단] 화질 배율을 1로 제한하고 logging을 꺼서 모바일 메모리 한계를 지킵니다 ★★★
               const canvas = await window.html2canvas(targetElement, {
-                scale: 1.5, 
+                scale: 1, 
                 useCORS: true,
+                logging: false,
                 backgroundColor: '#f3f4f6',
                 width: targetElement.offsetWidth,
                 windowWidth: document.documentElement.clientWidth,
