@@ -84,6 +84,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         .capture-mode .temp-recommended-location { display: block !important; line-height: normal !important; padding-top: 0 !important; transform: none !important; text-align: center !important; }
         .capture-mode .recommended-location { display: none !important; }
         .capture-mode .recommended-location-wrapper { display: flex !important; align-items: center !important; justify-content: center !important; }
+        @keyframes native-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* 은은한 글로우 효과 애니메이션 추가 */
+        @keyframes soft-glow {
+            0%, 100% { box-shadow: 0 0 8px rgba(251, 191, 36, 0.4), 0 0 15px rgba(251, 191, 36, 0.2); }
+            50% { box-shadow: 0 0 15px rgba(251, 191, 36, 0.8), 0 0 25px rgba(217, 119, 6, 0.5); }
+        }
+        .animate-soft-glow {
+            animation: soft-glow 2.5s infinite ease-in-out;
+        }
     </style>
 </head>
 <body>
@@ -553,6 +563,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         />
                       )}
                     </div>
+                    
+                    <a href="https://english.visitkorea.or.kr/svc/main/index.do" target="_blank" rel="noopener noreferrer" onClick={() => pushToDataLayer('ClickOutbound')} className="block w-full bg-[#fbbf24] border-2 border-[#d97706] hover:bg-[#f59e0b] text-gray-900 text-center py-4 rounded-xl font-bold text-lg transition-colors animate-soft-glow">
+                      Custom Your Route!
+                    </a>
+
                     <div className="bg-white rounded-2xl shadow-sm border-2 border-gray-200 p-6 text-center">
                       <h4 className="text-sm font-bold text-gray-500 mb-2">{result.subtitle}</h4>
                       <h3 className="text-2xl font-extrabold text-[#d28014] mb-4">{result.badge}</h3>
@@ -588,9 +603,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <button onClick={() => handleShare('x')} className="w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-sm"><svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
                         <button onClick={handleCopyLink} className="w-12 h-12 rounded-xl bg-gray-200 text-gray-700 flex items-center justify-center hover:bg-gray-300 transition-colors shadow-sm"><LinkIcon /></button>
                       </div>
-                      <a href="https://english.visitkorea.or.kr/svc/main/index.do" target="_blank" rel="noopener noreferrer" onClick={() => pushToDataLayer('ClickOutbound')} className="block w-full bg-[#fbbf24] border-2 border-[#d97706] hover:bg-[#f59e0b] text-gray-900 text-center py-4 rounded-xl font-bold text-lg transition-colors shadow-sm">
-                        Find My K-Route ▶
-                      </a>
                     </div>
                   </div>
                 </div>
