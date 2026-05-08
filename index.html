@@ -27,12 +27,13 @@
     </script>
     
     <!-- ▼▼▼ GTM 스크립트 (Head) 영역 ▼▼▼ -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-M3PDGV7R');</script>
-    <!-- ▲▲▲ End Google Tag Manager ▲▲▲ -->
+ <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M3PDGV7R');</script>
+<!-- End Google Tag Manager -->
 
     <!-- ▼▼▼ TikTok Pixel Code Start ▼▼▼ -->
     <script>
@@ -83,13 +84,14 @@
         .capture-mode .temp-recommended-location { display: block !important; line-height: normal !important; padding-top: 0 !important; transform: none !important; text-align: center !important; }
         .capture-mode .recommended-location { display: none !important; }
         .capture-mode .recommended-location-wrapper { display: flex !important; align-items: center !important; justify-content: center !important; }
-        @keyframes native-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
     <!-- ▼▼▼ GTM 스크립트 (Body) 영역 ▼▼▼ -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3PDGV7R"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3PDGV7R"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
     <!-- ▲▲▲ End Google Tag Manager (noscript) ▲▲▲ -->
 
     <!-- ★★★ 순수 HTML 레벨 강제 메모리 주입 (3중 우회 완벽 적용) ★★★ -->
@@ -347,8 +349,10 @@
             }
             try {
               setIsCapturing(true);
-              showToast("Generating high-quality image... ⏳");
+              showToast("Generating image... Please wait ⏳");
+              
               await document.fonts.ready;
+              // 최적화 1: 캡처 영역을 맨 위로 올려 불필요한 브라우저 화면 렌더링 방지
               window.scrollTo(0, 0);
 
               const targetElement = resultCardRef.current;
@@ -361,23 +365,28 @@
                 container.style.height = 'auto';
               }
 
+              // 최적화 2: 캡처 전, 숨겨진 메모리 킬러 태그들을 확실하게 싹 다 지워버림
+              const globalPreloader = document.getElementById('html-global-preloader');
+              if (globalPreloader) globalPreloader.remove();
+
               await new Promise(r => setTimeout(r, 300));
 
-              // ★★★ [메모리 부족 원천차단] 보안 충돌을 일으키는 allowTaint 옵션을 제거했습니다. ★★★
+              // ★★★ [메모리 폭발 완벽 방어] ignoreElements 필터 및 JPEG 인코딩 적용 ★★★
               const canvas = await window.html2canvas(targetElement, {
-                scale: 1, 
+                scale: 1, // 배율 1 고정 (과도한 픽셀 연산 방지)
                 useCORS: true,
+                allowTaint: false, // Security Error 및 튕김 방지
                 logging: false,
                 backgroundColor: '#f3f4f6',
                 width: targetElement.offsetWidth,
-                windowWidth: document.documentElement.clientWidth,
+                ignoreElements: (node) => {
+                  // 화면에 보이지 않는 요소들을 html2canvas가 복제하지 못하게 강제 차단
+                  if (node.id === 'native-splash' || node.id === 'html-global-preloader') {
+                    return true;
+                  }
+                  return false;
+                },
                 onclone: (clonedDocument) => {
-                  // 복제된 가상 DOM에서도 메모리 킬러인 프리로더 요소들이 남아있다면 완전히 지워버립니다.
-                  const preloader = clonedDocument.getElementById('html-global-preloader');
-                  if (preloader) preloader.remove();
-                  const splash = clonedDocument.getElementById('native-splash');
-                  if (splash) splash.remove();
-
                   const clonedTarget = clonedDocument.getElementById('result-card');
                   if (clonedTarget) {
                     clonedTarget.style.width = targetElement.offsetWidth + 'px';
@@ -414,15 +423,17 @@
                 container.style.height = origContainerHeight;
               }
 
-              const dataUrl = canvas.toDataURL('image/png');
+              // 최적화 3: 메모리를 어마어마하게 먹는 PNG 대신 가벼운 JPEG로 압축하여 데이터 생성
+              const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+              
               const link = document.createElement('a');
-              link.download = 'my-korea-result.png';
+              link.download = 'my-korea-result.jpg';
               link.href = dataUrl;
               document.body.appendChild(link);
               link.click();
               document.body.removeChild(link);
 
-              // ★★★ [메모리 해제] 저장이 끝난 후 브라우저 메모리(RAM)에 남아있는 캔버스 데이터를 즉시 강제 소각합니다. ★★★
+              // 최적화 4: 캡처에 사용된 거대한 캔버스 데이터를 브라우저 램(RAM)에서 강제로 비움
               canvas.width = 0;
               canvas.height = 0;
 
@@ -433,7 +444,8 @@
               const container = document.getElementById('result-scroll-container');
               if (container) { container.style.overflow = 'hidden'; container.style.height = '100dvh'; }
               setIsCapturing(false);
-              showToast("Failed to generate image. (Google Drive CORS Blocked)");
+              // 실패 시 모바일 친화적인 대안 안내
+              showToast("Save failed. Please screenshot this page!");
             }
           };
 
