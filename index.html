@@ -91,8 +91,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             0%, 100% { box-shadow: 0 0 8px rgba(251, 191, 36, 0.4), 0 0 15px rgba(251, 191, 36, 0.2); }
             50% { box-shadow: 0 0 15px rgba(251, 191, 36, 0.8), 0 0 25px rgba(217, 119, 6, 0.5); }
         }
-        .animate-soft-glow {
-            animation: soft-glow 2.5s infinite ease-in-out;
+        
+        /* CTA 버튼 찰나의 빛 반사(Shimmer) 및 숨쉬기(Pulse) 효과 */
+        @keyframes shimmer-sweep {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            50%, 100% { transform: translateX(200%) skewX(-15deg); }
+        }
+        @keyframes subtle-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        .btn-premium-cta {
+            position: relative;
+            overflow: hidden;
+            animation: soft-glow 3s infinite ease-in-out, subtle-pulse 3s infinite ease-in-out;
+        }
+        .btn-premium-cta::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transform: translateX(-100%) skewX(-15deg);
+            animation: shimmer-sweep 3s infinite ease-in-out;
         }
     </style>
 </head>
@@ -564,8 +587,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                       )}
                     </div>
                     
-                    <a href="https://english.visitkorea.or.kr/svc/main/index.do" target="_blank" rel="noopener noreferrer" onClick={() => pushToDataLayer('ClickOutbound')} className="block w-full bg-[#fbbf24] border-2 border-[#d97706] hover:bg-[#f59e0b] text-gray-900 text-center py-4 rounded-xl font-bold text-lg transition-colors animate-soft-glow">
-                      Custom Your Route!
+                    <a href="https://english.visitkorea.or.kr/svc/main/index.do" target="_blank" rel="noopener noreferrer" onClick={() => pushToDataLayer('ClickOutbound')} className="btn-premium-cta flex items-center justify-center gap-2 w-full bg-gradient-to-r from-[#fbbf24] to-[#f59e0b] border-2 border-[#d97706] text-gray-900 py-4 rounded-xl font-black text-lg transition-all shadow-md">
+                      <span>✈️ Custom Your Route!</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="opacity-80"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
                     </a>
 
                     <div className="bg-white rounded-2xl shadow-sm border-2 border-gray-200 p-6 text-center">
