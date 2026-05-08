@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Korea Travel Persona Test</title>
+
+    <!-- ★★★ [핵심] 스코프 충돌 방지를 위한 전역 3중 우회 에러 핸들러 ★★★ -->
+    <script>
+        window.handleImgError = function(img, driveId) {
+            // 현재 몇 번째 재시도인지 확인 (data-retry 속성 활용)
+            var retry = parseInt(img.getAttribute('data-retry') || '0');
+            
+            if (retry === 0) {
+                // 1차 실패 (thumbnail API) -> 2차 시도 (우회 CDN)
+                img.setAttribute('data-retry', '1');
+                img.src = 'https://lh3.googleusercontent.com/d/' + driveId;
+            } else if (retry === 1) {
+                // 2차 실패 (우회 CDN) -> 3차 시도 (다이렉트 링크)
+                img.setAttribute('data-retry', '2');
+                img.src = 'https://drive.google.com/uc?export=view&id=' + driveId;
+            } else {
+                // 3차까지 모두 실패 (최종 방어) -> 엑박 숨김
+                img.style.opacity = '0';
+            }
+        };
+    </script>
+    
+    <!-- ▼▼▼ GTM 스크립트 (Head) 영역 ▼▼▼ -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    <!-- ▲▲▲ End Google Tag Manager ▲▲▲ -->
+
+    <!-- ▼▼▼ TikTok Pixel Code Start ▼▼▼ -->
+    <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+    var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+    ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+      ttq.load('D7PDGQRC77U9TECLD370');
+      ttq.page();
+    }(window, document, 'ttq');
+    </script>
+    <!-- ▲▲▲ TikTok Pixel Code End ▲▲▲ -->
+
+    <meta property="og:site_name" content="Korea Travel Persona Test">
+    <meta property="og:title" content="Korea Travel Persona Test">
+    <meta property="og:description" content="Find your KOREA travel type!">
+    <meta property="og:image" content="https://drive.google.com/uc?export=view&id=126X5mF6EMnU4bcD0GGtQVCygXUB-uXQV">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Korea Travel Persona Test">
+    <meta name="twitter:description" content="Find your KOREA travel type!">
+    <meta name="twitter:image" content="https://drive.google.com/uc?export=view&id=126X5mF6EMnU4bcD0GGtQVCygXUB-uXQV">
+
+    <link rel="preconnect" href="https://drive.google.com" crossorigin>
+    <link rel="dns-prefetch" href="https://drive.google.com">
+
+    <!-- 프리로드 역시 가장 빠른 1차 시도 링크(thumbnail)로 통일 -->
+    <link rel="preload" as="image" href="https://drive.google.com/thumbnail?id=126X5mF6EMnU4bcD0GGtQVCygXUB-uXQV" fetchpriority="high">
+    <link rel="preload" as="image" href="https://drive.google.com/thumbnail?id=1rAFH1kjXFM0IQ3YjqpIun7wnkxrmeJo2" fetchpriority="high">
+    <link rel="preload" as="image" href="https://drive.google.com/thumbnail?id=1aFXCaq4x3drAEE6Wo_6nA3keEEswILtH" fetchpriority="high">
+    <link rel="preload" as="image" href="https://drive.google.com/thumbnail?id=1RdXMnWpzxJWlItn23ClGpI5MEMFsRTSJ" fetchpriority="high">
+    <link rel="preload" as="image" href="https://drive.google.com/thumbnail?id=1qX6o56kTHIXHSUKqLlrSP9XdUbnXR7nJ" fetchpriority="high">
+
+    <style>
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+        }
+        .capture-mode .temp-recommended-location { display: block !important; line-height: normal !important; padding-top: 0 !important; transform: none !important; text-align: center !important; }
+        .capture-mode .recommended-location { display: none !important; }
+        .capture-mode .recommended-location-wrapper { display: flex !important; align-items: center !important; justify-content: center !important; }
+    </style>
+</head>
+<body>
+    <!-- ▼▼▼ GTM 스크립트 (Body) 영역 ▼▼▼ -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- ▲▲▲ End Google Tag Manager (noscript) ▲▲▲ -->
+
+    <!-- ★★★ 순수 HTML 레벨 강제 메모리 주입 (3중 우회 완벽 적용) ★★★ -->
+    <div id="html-global-preloader" style="position: absolute; width: 0; height: 0; overflow: hidden; z-index: -100; opacity: 0; pointer-events: none;">
+        <!-- Start & Q1 -->
+        <img src="https://drive.google.com/thumbnail?id=126X5mF6EMnU4bcD0GGtQVCygXUB-uXQV" onerror="window.handleImgError(this, '126X5mF6EMnU4bcD0GGtQVCygXUB-uXQV')" fetchpriority="high" decoding="sync">
+        <img src="https://drive.google.com/thumbnail?id=1rAFH1kjXFM0IQ3YjqpIun7wnkxrmeJo2" onerror="window.handleImgError(this, '1rAFH1kjXFM0IQ3YjqpIun7wnkxrmeJo2')" fetchpriority="high" decoding="sync">
+        <img src="https://drive.google.com/thumbnail?id=1aFXCaq4x3drAEE6Wo_6nA3keEEswILtH" onerror="window.handleImgError(this, '1aFXCaq4x3drAEE6Wo_6nA3keEEswILtH')" fetchpriority="high" decoding="sync">
+        <img src="https://drive.google.com/thumbnail?id=1RdXMnWpzxJWlItn23ClGpI5MEMFsRTSJ" onerror="window.handleImgError(this, '1RdXMnWpzxJWlItn23ClGpI5MEMFsRTSJ')" fetchpriority="high" decoding="sync">
+        <img src="https://drive.google.com/thumbnail?id=1qX6o56kTHIXHSUKqLlrSP9XdUbnXR7nJ" onerror="window.handleImgError(this, '1qX6o56kTHIXHSUKqLlrSP9XdUbnXR7nJ')" fetchpriority="high" decoding="sync">
+        
+        <!-- Q2 -->
+        <img src="https://drive.google.com/thumbnail?id=1pvz-JsMPcnuD_uERFrVT2fjqhzHN9GQZ" onerror="window.handleImgError(this, '1pvz-JsMPcnuD_uERFrVT2fjqhzHN9GQZ')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1rpAW0Mst2SYBumoKWR32pFqb7h_uURVx" onerror="window.handleImgError(this, '1rpAW0Mst2SYBumoKWR32pFqb7h_uURVx')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1RGpYt8e2aqW1nTEew8i3klSAXKZTKBj2" onerror="window.handleImgError(this, '1RGpYt8e2aqW1nTEew8i3klSAXKZTKBj2')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=15PXKzW4vIhmvv8V4lOtMyNoBUlRKRicH" onerror="window.handleImgError(this, '15PXKzW4vIhmvv8V4lOtMyNoBUlRKRicH')" decoding="async">
+        
+        <!-- Q3 -->
+        <img src="https://drive.google.com/thumbnail?id=11AFPL8e4F4DK955G83I235PS_5_lbLjz" onerror="window.handleImgError(this, '11AFPL8e4F4DK955G83I235PS_5_lbLjz')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1ZbwwkaKTo7yGecOCJJ7GEiGTXiZefr4o" onerror="window.handleImgError(this, '1ZbwwkaKTo7yGecOCJJ7GEiGTXiZefr4o')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=11L12go-3O8g7vtSDT7JFb0FYmE8lwuvl" onerror="window.handleImgError(this, '11L12go-3O8g7vtSDT7JFb0FYmE8lwuvl')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1uKL1R0RiStfu0a-_1cGeV81V-rr8GRpC" onerror="window.handleImgError(this, '1uKL1R0RiStfu0a-_1cGeV81V-rr8GRpC')" decoding="async">
+        
+        <!-- Q4 -->
+        <img src="https://drive.google.com/thumbnail?id=1Elq2X6iOLcIn4ZZV3LGBVHdQTAXCN9N3" onerror="window.handleImgError(this, '1Elq2X6iOLcIn4ZZV3LGBVHdQTAXCN9N3')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1toypVI5WZvi8yMWvH_o5ZtTG8KsmBjz7" onerror="window.handleImgError(this, '1toypVI5WZvi8yMWvH_o5ZtTG8KsmBjz7')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1_rOKpBaqcbmGY4EzU8hl-WCpmvGqtHT2" onerror="window.handleImgError(this, '1_rOKpBaqcbmGY4EzU8hl-WCpmvGqtHT2')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1nb5nBJgXHwaStAUUlqhAFQWNNc8gc2JR" onerror="window.handleImgError(this, '1nb5nBJgXHwaStAUUlqhAFQWNNc8gc2JR')" decoding="async">
+        
+        <!-- Q5 -->
+        <img src="https://drive.google.com/thumbnail?id=1sGebKe8ybXQj4SlzQ-3eCOTE0yWYGtR5" onerror="window.handleImgError(this, '1sGebKe8ybXQj4SlzQ-3eCOTE0yWYGtR5')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1HTydmYxMFP_4ONdafT1fCIZzxFz3LNE2" onerror="window.handleImgError(this, '1HTydmYxMFP_4ONdafT1fCIZzxFz3LNE2')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1-EtAcapgJKHyWWU5AXiXiKdSebZR7g64" onerror="window.handleImgError(this, '1-EtAcapgJKHyWWU5AXiXiKdSebZR7g64')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1mgXI1xaTdCcra1zPEVqul9ojBKEZt8g-" onerror="window.handleImgError(this, '1mgXI1xaTdCcra1zPEVqul9ojBKEZt8g-')" decoding="async">
+        
+        <!-- Results (CORS) -->
+        <img src="https://drive.google.com/thumbnail?id=1qLsT2QOrXM8BS0HeCesdeRKh0ceFZ-iI" crossorigin="anonymous" onerror="window.handleImgError(this, '1qLsT2QOrXM8BS0HeCesdeRKh0ceFZ-iI')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=13vKQxgV1MczJO2r6mIy4GMrPBN5vFfGh" crossorigin="anonymous" onerror="window.handleImgError(this, '13vKQxgV1MczJO2r6mIy4GMrPBN5vFfGh')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1I_qCCCwp-ajiqGW-vijQOOURl9Uv3zHd" crossorigin="anonymous" onerror="window.handleImgError(this, '1I_qCCCwp-ajiqGW-vijQOOURl9Uv3zHd')" decoding="async">
+        <img src="https://drive.google.com/thumbnail?id=1I5OhkdVHeL5hzbiu5yin6HyKMhCKc9--" crossorigin="anonymous" onerror="window.handleImgError(this, '1I5OhkdVHeL5hzbiu5yin6HyKMhCKc9--')" decoding="async">
+    </div>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const ArrowLeft = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+        );
+        const Lightbulb = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-500"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg>
+        );
+        const Instagram = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        );
+        const Facebook = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        );
+        const LinkIcon = () => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        );
+
+        // 이미지 주소 대신 고유 driveId 저장 (3중 우회를 위함)
+        const QUIZ_QUESTIONS = [
+          {
+            id: 1, question: "Morning in Korea! What's your vibe?",
+            options: [
+              { id: 'A', text: 'Coffee', driveId: '1rAFH1kjXFM0IQ3YjqpIun7wnkxrmeJo2' },
+              { id: 'B', text: 'Hot Soup', driveId: '1aFXCaq4x3drAEE6Wo_6nA3keEEswILtH' },
+              { id: 'C', text: 'Morning Hike', driveId: '1RdXMnWpzxJWlItn23ClGpI5MEMFsRTSJ' },
+              { id: 'D', text: 'Meditation', driveId: '1qX6o56kTHIXHSUKqLlrSP9XdUbnXR7nJ' }
+            ]
+          },
+          {
+            id: 2, question: "Sho't left! How are we moving?",
+            options: [
+              { id: 'A', text: 'Fast Train', driveId: '1pvz-JsMPcnuD_uERFrVT2fjqhzHN9GQZ' },
+              { id: 'B', text: 'Road Snacks', driveId: '1rpAW0Mst2SYBumoKWR32pFqb7h_uURVx' },
+              { id: 'C', text: 'City Bike', driveId: '1RGpYt8e2aqW1nTEew8i3klSAXKZTKBj2' },
+              { id: 'D', text: 'Scenic Bus', driveId: '15PXKzW4vIhmvv8V4lOtMyNoBUlRKRicH' }
+            ]
+          },
+          {
+            id: 3, question: "Only ONE pic to keep. What is it?",
+            options: [
+              { id: 'A', text: 'Trend Fashion', driveId: '11AFPL8e4F4DK955G83I235PS_5_lbLjz' },
+              { id: 'B', text: 'Big Meal', driveId: '1ZbwwkaKTo7yGecOCJJ7GEiGTXiZefr4o' },
+              { id: 'C', text: 'City View', driveId: '11L12go-3O8g7vtSDT7JFb0FYmE8lwuvl' },
+              { id: 'D', text: 'Traditional Dress', driveId: '1uKL1R0RiStfu0a-_1cGeV81V-rr8GRpC' }
+            ]
+          },
+          {
+            id: 4, question: "10 PM! Where's the groove?",
+            options: [
+              { id: 'A', text: 'Night Streets', driveId: '1Elq2X6iOLcIn4ZZV3LGBVHdQTAXCN9N3' },
+              { id: 'B', text: 'River Ramen', driveId: '1toypVI5WZvi8yMWvH_o5ZtTG8KsmBjz7' },
+              { id: 'C', text: 'City Lights', driveId: '1_rOKpBaqcbmGY4EzU8hl-WCpmvGqtHT2' },
+              { id: 'D', text: 'Korean Spa', driveId: '1nb5nBJgXHwaStAUUlqhAFQWNNc8gc2JR' }
+            ]
+          },
+          {
+            id: 5, question: "Taking Korea to Mzansi! Your pick?",
+            options: [
+              { id: 'A', text: 'Skincare', driveId: '1sGebKe8ybXQj4SlzQ-3eCOTE0yWYGtR5' },
+              { id: 'B', text: 'Snacks', driveId: '1HTydmYxMFP_4ONdafT1fCIZzxFz3LNE2' },
+              { id: 'C', text: 'K-Pop Gear', driveId: '1-EtAcapgJKHyWWU5AXiXiKdSebZR7g64' },
+              { id: 'D', text: 'Local Gifts', driveId: '1mgXI1xaTdCcra1zPEVqul9ojBKEZt8g-' }
+            ]
+          }
+        ];
+
+        const RESULTS_DATA = {
+          A: {
+            driveId: "1qLsT2QOrXM8BS0HeCesdeRKh0ceFZ-iI", badge: "[The Trendsetter]", subtitle: "The Main Character of Seoul",
+            shortDesc: "You have a radar for everything hip and trendy!\nYou're the one leading the pack.",
+            mustVisit: "Seongsu-dong & Hongdae",
+            tip: "Hit up the latest pop-up stores for the perfect IG shot\nand go on a shopping spree at local curated select shops."
+          },
+          B: {
+            driveId: "13vKQxgV1MczJO2r6mIy4GMrPBN5vFfGh", badge: "[The Food Explorer]", subtitle: "The Ultimate Flavor Chaser",
+            shortDesc: "From street food to hidden gems!\nYou travel purely for the flavor.",
+            mustVisit: "Jagalchi Market (Busan)",
+            tip: "Catch the real Busan vibe!\nFeast on ultra-fresh seafood and munch on the legendary street-style grilled fish."
+          },
+          C: {
+            driveId: "1I_qCCCwp-ajiqGW-vijQOOURl9Uv3zHd", badge: "[The Nature Adventurer]", subtitle: "The High-Energy Explorer",
+            shortDesc: "Why just look when you can do?\nYou're an adrenaline junkie.",
+            mustVisit: "Gapyeong (Nami Island)",
+            tip: "Feel the rush on a zipline across the Han River\nand enjoy a breezy bike ride through the forest."
+          },
+          D: {
+            driveId: "1I5OhkdVHeL5hzbiu5yin6HyKMhCKc9--", badge: "[The Culture Seeker]", subtitle: "The Soulful Voyager",
+            shortDesc: "You're here for the deep cuts.\nYou find beauty in ancient traditions.",
+            mustVisit: "Gyeongju & Bukchon",
+            tip: "Stroll through the hanok alleys in a beautiful Hanbok\nand sip traditional tea while listening to the wind chimes."
+          }
+        };
+
+        const pushToDataLayer = (eventName, extraData = {}) => {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: eventName, ...extraData });
+        };
+
+        function App() {
+          const [hasStarted, setHasStarted] = useState(false);
+          const [currentStep, setCurrentStep] = useState(0);
+          const [answers, setAnswers] = useState([]);
+          const [selectedOption, setSelectedOption] = useState(null);
+          const [showResult, setShowResult] = useState(false);
+          const [resultKey, setResultKey] = useState(null);
+          const [toastMessage, setToastMessage] = useState("");
+          const [isCapturing, setIsCapturing] = useState(false);
+
+          const resultCardRef = useRef(null);
+
+          const handleStart = () => {
+            setHasStarted(true);
+            pushToDataLayer('StartTest');
+          };
+
+          const handleSelect = (id) => {
+            setSelectedOption(id);
+            pushToDataLayer('quiz_progress', { step: currentStep + 1, selected_option: id });
+
+            setTimeout(() => {
+              const newAnswers = [...answers, id];
+              setAnswers(newAnswers);
+              setSelectedOption(null);
+
+              if (currentStep < QUIZ_QUESTIONS.length - 1) {
+                setCurrentStep(currentStep + 1);
+              } else {
+                calculateResult(newAnswers);
+              }
+            }, 100);
+          };
+
+          const handleBack = () => {
+            if (currentStep > 0) {
+              setCurrentStep(currentStep - 1);
+              setAnswers(answers.slice(0, -1));
+            }
+          };
+
+          const calculateResult = (finalAnswers) => {
+            const counts = { A: 0, B: 0, C: 0, D: 0 };
+            finalAnswers.forEach(ans => counts[ans]++);
+            const topResult = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+            
+            setResultKey(topResult);
+            setShowResult(true);
+
+            const isSubmitFired = sessionStorage.getItem('tiktok_SubmitForm_fired');
+            if (!isSubmitFired) {
+                pushToDataLayer('SubmitForm');
+                sessionStorage.setItem('tiktok_SubmitForm_fired', 'true');
+            }
+            pushToDataLayer('ViewResult', { result_persona: topResult });
+          };
+
+          const handleReload = () => {
+            setHasStarted(false);
+            setCurrentStep(0);
+            setAnswers([]);
+            setSelectedOption(null);
+            setShowResult(false);
+            setResultKey(null);
+            window.scrollTo(0, 0);
+          };
+
+          const showToast = (msg) => {
+            setToastMessage(msg);
+            setTimeout(() => setToastMessage(""), 3000);
+          };
+
+          const handleSaveImage = async () => {
+            if (!window.html2canvas) {
+              showToast("Loading image capture module. Please try again in a moment.");
+              return;
+            }
+            try {
+              setIsCapturing(true);
+              showToast("Generating high-quality image... ⏳");
+              await document.fonts.ready;
+              window.scrollTo(0, 0);
+
+              const targetElement = resultCardRef.current;
+              const container = document.getElementById('result-scroll-container');
+              const origContainerOverflow = container ? container.style.overflow : '';
+              const origContainerHeight = container ? container.style.height : '';
+
+              if (container) {
+                container.style.overflow = 'visible';
+                container.style.height = 'auto';
+              }
+
+              await new Promise(r => setTimeout(r, 300));
+
+              const canvas = await window.html2canvas(targetElement, {
+                scale: 3, 
+                useCORS: true,
+                backgroundColor: '#f3f4f6',
+                width: targetElement.offsetWidth,
+                windowWidth: document.documentElement.clientWidth,
+                onclone: (clonedDocument) => {
+                  const clonedTarget = clonedDocument.getElementById('result-card');
+                  if (clonedTarget) {
+                    clonedTarget.style.width = targetElement.offsetWidth + 'px';
+                    clonedTarget.style.maxWidth = '390px';
+                    clonedTarget.style.margin = '0 auto';
+
+                    const locationTexts = clonedTarget.querySelectorAll('.recommended-location');
+                    locationTexts.forEach(el => {
+                      el.style.background = 'none';
+                      el.style.webkitBackgroundClip = 'initial';
+                      el.style.webkitTextFillColor = 'initial';
+                      el.style.color = '#4f46e5'; 
+                      el.style.display = 'block';
+                      el.style.lineHeight = 'normal';
+                      el.style.letterSpacing = 'normal';
+                      el.style.transform = 'none';
+                      el.style.padding = '0';
+                      el.style.margin = '0';
+                      el.style.textAlign = 'center';
+                    });
+
+                    const wrappers = clonedTarget.querySelectorAll('.recommended-location-wrapper');
+                    wrappers.forEach(el => {
+                      el.style.display = 'flex';
+                      el.style.alignItems = 'center';
+                      el.style.justifyContent = 'center';
+                    });
+                  }
+                }
+              });
+
+              if (container) {
+                container.style.overflow = origContainerOverflow;
+                container.style.height = origContainerHeight;
+              }
+
+              const dataUrl = canvas.toDataURL('image/png');
+              const link = document.createElement('a');
+              link.download = 'my-korea-result.png';
+              link.href = dataUrl;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+
+              setIsCapturing(false);
+              showToast("Image saved successfully! 📸");
+            } catch (err) {
+              console.error(err);
+              const container = document.getElementById('result-scroll-container');
+              if (container) { container.style.overflow = 'hidden'; container.style.height = '100dvh'; }
+              setIsCapturing(false);
+              showToast("Failed to generate image. (Google Drive CORS Blocked)");
+            }
+          };
+
+          const handleCopyLink = () => {
+            pushToDataLayer('ShareResult', { platform: 'copy_link' });
+            const baseUrl = window.location.href.split('?')[0];
+            const shareUrl = `${baseUrl}?share=1`;
+            const textArea = document.createElement("textarea");
+            textArea.value = shareUrl;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try { document.execCommand("copy"); showToast("Link copied to clipboard! 🔗"); } 
+            catch (err) { showToast("Failed to copy link."); }
+            textArea.remove();
+          };
+
+          const handleShare = (platform) => {
+            pushToDataLayer('ShareResult', { platform: platform });
+            const baseUrl = window.location.href.split('?')[0];
+            const shareUrl = `${baseUrl}?share=1`;
+            const shareTitle = "My Korea Travel Persona!";
+            
+            switch(platform) {
+              case 'x': window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareTitle)}&url=${encodeURIComponent(shareUrl)}`); break;
+              case 'facebook': window.open('https://www.facebook.com/', '_blank'); break;
+              case 'instagram': window.open('https://www.instagram.com/', '_blank'); break;
+              case 'tiktok': window.open('https://www.tiktok.com/', '_blank'); break;
+              default: handleCopyLink();
+            }
+          };
+
+          const Toast = () => {
+            if (!toastMessage) return null;
+            return (
+              <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-gray-800 text-white px-6 py-3 rounded-full shadow-lg text-sm font-medium animate-bounce whitespace-nowrap">
+                {toastMessage}
+              </div>
+            );
+          };
+
+          if (!hasStarted) {
+            return (
+              <div className="min-h-[100dvh] w-full flex items-center justify-center bg-gray-100 font-sans">
+                <div className="w-full max-w-[390px] min-h-[100dvh] md:min-h-[844px] bg-white flex flex-col items-center justify-center relative md:rounded-[2.5rem] md:shadow-2xl overflow-hidden text-center">
+
+                  {/* 메인 화면 3중 우회 렌더링 적용 */}
+                  <img 
+                    src={`https://drive.google.com/thumbnail?id=126X5mF6EMnU4bcD0GGtQVCygXUB-uXQV`}
+                    onError={(e) => window.handleImgError(e.target, '126X5mF6EMnU4bcD0GGtQVCygXUB-uXQV')}
+                    alt="Korea Travel Persona" 
+                    className="absolute inset-0 w-full h-full object-cover z-0"
+                    loading="eager"
+                    fetchPriority="high"
+                  />
+                  
+                  <div className="absolute inset-0 bg-black/40 backdrop-blur-sm z-0 pointer-events-none"></div>
+
+                  <div className="relative z-10 flex flex-col items-center justify-center h-full w-full px-4 pb-24">
+                    <div className="flex flex-col items-center justify-center mb-10 text-center w-full">
+                      <p className="text-white font-bold uppercase tracking-wider mb-2 drop-shadow-lg text-[4.5vw] min-[390px]:text-[18px]" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+                        No more <span className="text-[#00c853] font-black text-[7vw] min-[390px]:text-[28px] italic px-1">Now-Now</span>
+                      </p>
+                      <h1 className="flex flex-col items-center leading-[1.05] w-full">
+                        <span className="text-[#2962ff] font-black uppercase tracking-tighter italic pr-2 text-[16vw] min-[390px]:text-[64px]" style={{ textShadow: '-2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff, 0 10px 20px rgba(0,0,0,0.6)' }}>
+                          KOREA
+                        </span>
+                        <span className="text-white font-extrabold tracking-[0.2em] mt-1 mb-4 text-[5vw] min-[390px]:text-[20px]" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+                          IS CALLING
+                        </span>
+                        <span className="text-white font-bold uppercase tracking-widest mb-1 mt-1 text-[4.5vw] min-[390px]:text-[18px]" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.8)' }}>
+                          Find your
+                        </span>
+                        <span className="text-[#ff1744] font-black uppercase tracking-tighter italic pr-2 text-[12.5vw] min-[390px]:text-[50px]" style={{ textShadow: '-2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff, 0 10px 20px rgba(0,0,0,0.6)' }}>
+                          K-PERSONA
+                        </span>
+                      </h1>
+                    </div>
+                    <button onClick={handleStart} className="w-full max-w-[340px] border-2 py-4 rounded-2xl font-extrabold text-xl transition-colors shadow-xl bg-[#fbbf24] border-[#d97706] hover:bg-[#f59e0b] text-gray-900 cursor-pointer">
+                      Start ▶
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          if (showResult && resultKey) {
+            const result = RESULTS_DATA[resultKey];
+            return (
+              <div className="min-h-[100dvh] w-full flex items-start justify-center bg-gray-100 font-sans md:py-8">
+                <div id="result-scroll-container" className="w-full max-w-[390px] min-h-[100dvh] bg-[#f3f4f6] flex flex-col relative md:rounded-[2.5rem] md:shadow-2xl overflow-hidden pb-10">
+                  <Toast />
+                  <div id="result-card" ref={resultCardRef} className="bg-[#f3f4f6] w-full pt-8 pb-6 px-5 flex flex-col space-y-4 relative z-0">
+                    <div className="text-center pb-2">
+                      <h2 className="text-xl font-bold tracking-widest text-indigo-600 uppercase">YOUR K-TRAVEL PERSONA</h2>
+                    </div>
+                    <div className="bg-white rounded-2xl shadow-sm border-2 border-gray-200 overflow-hidden flex flex-col items-center justify-center">
+                      {result.driveId && (
+                        // 결과 화면 3중 우회 렌더링 적용
+                        <img 
+                          src={`https://drive.google.com/thumbnail?id=${result.driveId}`}
+                          onError={(e) => window.handleImgError(e.target, result.driveId)}
+                          alt={result.badge} 
+                          crossOrigin="anonymous" 
+                          loading="eager" 
+                          className="w-full h-auto object-cover block" 
+                        />
+                      )}
+                    </div>
+                    <div className="bg-white rounded-2xl shadow-sm border-2 border-gray-200 p-6 text-center">
+                      <h4 className="text-sm font-bold text-gray-500 mb-2">{result.subtitle}</h4>
+                      <h3 className="text-2xl font-extrabold text-[#d28014] mb-4">{result.badge}</h3>
+                      <div className="bg-blue-50/50 rounded-xl p-4 border border-blue-100">
+                        {result.shortDesc.split('\n').map((line, i) => (<p key={i} className="text-gray-800 font-bold leading-relaxed">{line}</p>))}
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-2xl shadow-sm border-2 border-gray-200 p-6">
+                      <h4 className="text-sm font-bold text-gray-800 flex items-center gap-2 mb-3">
+                        <Lightbulb /> Recommended Travel
+                      </h4>
+                      <div className="inline-flex items-center justify-center bg-indigo-50 border border-indigo-100 px-4 py-2 rounded-lg mb-3 recommended-location-wrapper">
+                        <p className="font-extrabold text-indigo-600 text-lg recommended-location m-0 leading-snug">{result.mustVisit}</p>
+                      </div>
+                      <p className="text-gray-700 text-sm leading-relaxed font-medium whitespace-pre-line">Tip: {result.tip}</p>
+                    </div>
+                  </div>
+                  <div className="px-5 mt-2 mb-6 flex gap-3">
+                    <button onClick={handleReload} className="flex-1 bg-white border-2 border-gray-200 text-gray-800 py-3.5 rounded-xl font-bold flex items-center justify-center hover:bg-gray-50 transition-colors shadow-sm">
+                      Try Again
+                    </button>
+                    <button onClick={handleSaveImage} disabled={isCapturing} className={`flex-1 border-2 py-3.5 rounded-xl font-bold flex items-center justify-center transition-colors shadow-sm ${isCapturing ? 'bg-gray-300 border-gray-300 text-gray-500 cursor-not-allowed' : 'bg-[#4ade80] border-[#22c55e] text-white hover:bg-[#22c55e]'}`}>
+                      {isCapturing ? 'Saving...' : 'Save Image'}
+                    </button>
+                  </div>
+                  <div className="px-5 mb-6">
+                    <div className="bg-white rounded-2xl p-6 border-2 border-gray-200 shadow-sm">
+                      <h4 className="text-center text-sm font-bold text-gray-500 mb-4 tracking-widest uppercase">Share Your Result</h4>
+                      <div className="flex justify-center gap-3 mb-6">
+                        <button onClick={() => handleShare('instagram')} className="w-12 h-12 rounded-xl bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-sm"><Instagram /></button>
+                        <button onClick={() => handleShare('tiktok')} className="w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-sm"><svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1.04-.1z"/></svg></button>
+                        <button onClick={() => handleShare('facebook')} className="w-12 h-12 rounded-xl bg-[#1877f2] text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-sm"><Facebook /></button>
+                        <button onClick={() => handleShare('x')} className="w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-sm"><svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+                        <button onClick={handleCopyLink} className="w-12 h-12 rounded-xl bg-gray-200 text-gray-700 flex items-center justify-center hover:bg-gray-300 transition-colors shadow-sm"><LinkIcon /></button>
+                      </div>
+                      <a href="https://english.visitkorea.or.kr/svc/main/index.do" target="_blank" rel="noopener noreferrer" onClick={() => pushToDataLayer('ClickOutbound')} className="block w-full bg-[#fbbf24] border-2 border-[#d97706] hover:bg-[#f59e0b] text-gray-900 text-center py-4 rounded-xl font-bold text-lg transition-colors shadow-sm">
+                        Find My K-Route ▶
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          const question = QUIZ_QUESTIONS[currentStep];
+          const progressPercent = ((currentStep) / QUIZ_QUESTIONS.length) * 100;
+
+          return (
+            <div className="min-h-[100dvh] w-full flex items-center justify-center bg-gray-100 font-sans">
+              <div className="w-full max-w-[390px] min-h-[100dvh] md:min-h-[844px] bg-white flex flex-col relative md:rounded-[2.5rem] md:shadow-2xl overflow-y-auto overflow-x-hidden">
+                <div className="flex items-center p-4 pt-6 gap-4">
+                  <button onClick={handleBack} disabled={currentStep === 0} className={`transition-colors ${currentStep === 0 ? 'text-white' : 'text-gray-400 hover:text-gray-600 cursor-pointer'}`}><ArrowLeft /></button>
+                  <div className="flex-1 bg-gray-100 h-4 rounded-full overflow-hidden">
+                    <div className="bg-red-500 h-full transition-all duration-500 ease-out rounded-full" style={{width: `${progressPercent > 0 ? progressPercent : 5}%`}}></div>
+                  </div>
+                </div>
+                <div className="px-5 py-2 mb-6 mt-4 w-full">
+                  <div className="flex items-center gap-2 w-full overflow-hidden">
+                    <span className="bg-purple-100 text-purple-600 min-w-[28px] w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 shadow-sm">Q{currentStep + 1}</span>
+                    <h1 className="font-extrabold text-gray-800 leading-snug whitespace-nowrap tracking-tight shrink w-full text-[4.8vw] min-[390px]:text-[19px]" style={{ transform: 'scaleX(0.95)', transformOrigin: 'left center' }}>{question.question}</h1>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-3 px-5 flex-1 content-start pb-10">
+                  {question.options.map((option) => {
+                    const isSelected = selectedOption === option.id;
+                    return (
+                      <button key={`${currentStep}-${option.id}`} onClick={() => handleSelect(option.id)} disabled={selectedOption !== null} className={`relative overflow-hidden w-full aspect-[4/5] border-2 rounded-2xl p-3 flex flex-col items-center justify-between transition-all duration-200 ${isSelected ? 'border-red-500 bg-red-50 text-red-500 shadow-[0_2px_0_#ef4444] scale-95' : 'border-gray-200 bg-white text-gray-700 active:bg-gray-50 active:border-gray-300 shadow-[0_2px_0_#e5e5e5] md:hover:bg-gray-50 md:hover:border-gray-300'}`}>
+                        <div className="flex-1 w-full flex items-center justify-center min-h-0 relative z-0">
+                          {option.driveId && (
+                            // 문항 이미지 3중 우회 렌더링 적용
+                            <img 
+                              src={`https://drive.google.com/thumbnail?id=${option.driveId}`} 
+                              onError={(e) => window.handleImgError(e.target, option.driveId)}
+                              alt={option.text} 
+                              loading="eager" 
+                              className="w-full h-full object-contain drop-shadow-sm transition-transform scale-100" 
+                            />
+                          )}
+                        </div>
+                        <span className={`font-bold text-[15px] mt-2 relative z-10 px-2 py-0.5 rounded bg-white/70 ${isSelected ? 'text-red-500' : 'text-gray-600'}`}>{option.text}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
