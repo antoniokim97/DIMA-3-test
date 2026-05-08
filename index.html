@@ -335,8 +335,9 @@
 
               await new Promise(r => setTimeout(r, 300));
 
+              // ★★★ [메모리 부족 방지] 화질 배율을 3에서 1.5로 낮추어 모바일 기기 메모리 초과를 막습니다. ★★★
               const canvas = await window.html2canvas(targetElement, {
-                scale: 3, 
+                scale: 1.5, 
                 useCORS: true,
                 backgroundColor: '#f3f4f6',
                 width: targetElement.offsetWidth,
