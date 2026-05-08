@@ -27,13 +27,12 @@
     </script>
     
     <!-- ▼▼▼ GTM 스크립트 (Head) 영역 ▼▼▼ -->
- <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-M3PDGV7R');</script>
-<!-- End Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M3PDGV7R');</script>
+    <!-- ▲▲▲ End Google Tag Manager ▲▲▲ -->
 
     <!-- ▼▼▼ TikTok Pixel Code Start ▼▼▼ -->
     <script>
@@ -88,10 +87,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
     <!-- ▼▼▼ GTM 스크립트 (Body) 영역 ▼▼▼ -->
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3PDGV7R"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M3PDGV7R"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- ▲▲▲ End Google Tag Manager (noscript) ▲▲▲ -->
 
     <!-- ★★★ 순수 HTML 레벨 강제 메모리 주입 (3중 우회 완벽 적용) ★★★ -->
@@ -161,7 +158,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         );
 
-        // 이미지 주소 대신 고유 driveId 저장 (3중 우회를 위함)
         const QUIZ_QUESTIONS = [
           {
             id: 1, question: "Morning in Korea! What's your vibe?",
@@ -300,6 +296,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           };
 
           const handleReload = () => {
+            pushToDataLayer('ClickTryAgain');
             setHasStarted(false);
             setCurrentStep(0);
             setAnswers([]);
@@ -315,6 +312,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           };
 
           const handleSaveImage = async () => {
+            pushToDataLayer('ClickSaveImage');
             if (!window.html2canvas) {
               showToast("Loading image capture module. Please try again in a moment.");
               return;
@@ -441,7 +439,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <div className="min-h-[100dvh] w-full flex items-center justify-center bg-gray-100 font-sans">
                 <div className="w-full max-w-[390px] min-h-[100dvh] md:min-h-[844px] bg-white flex flex-col items-center justify-center relative md:rounded-[2.5rem] md:shadow-2xl overflow-hidden text-center">
 
-                  {/* 메인 화면 3중 우회 렌더링 적용 */}
                   <img 
                     src={`https://drive.google.com/thumbnail?id=126X5mF6EMnU4bcD0GGtQVCygXUB-uXQV`}
                     onError={(e) => window.handleImgError(e.target, '126X5mF6EMnU4bcD0GGtQVCygXUB-uXQV')}
@@ -494,7 +491,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     </div>
                     <div className="bg-white rounded-2xl shadow-sm border-2 border-gray-200 overflow-hidden flex flex-col items-center justify-center">
                       {result.driveId && (
-                        // 결과 화면 3중 우회 렌더링 적용
                         <img 
                           src={`https://drive.google.com/thumbnail?id=${result.driveId}`}
                           onError={(e) => window.handleImgError(e.target, result.driveId)}
@@ -575,7 +571,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                       <button key={`${currentStep}-${option.id}`} onClick={() => handleSelect(option.id)} disabled={selectedOption !== null} className={`relative overflow-hidden w-full aspect-[4/5] border-2 rounded-2xl p-3 flex flex-col items-center justify-between transition-all duration-200 ${isSelected ? 'border-red-500 bg-red-50 text-red-500 shadow-[0_2px_0_#ef4444] scale-95' : 'border-gray-200 bg-white text-gray-700 active:bg-gray-50 active:border-gray-300 shadow-[0_2px_0_#e5e5e5] md:hover:bg-gray-50 md:hover:border-gray-300'}`}>
                         <div className="flex-1 w-full flex items-center justify-center min-h-0 relative z-0">
                           {option.driveId && (
-                            // 문항 이미지 3중 우회 렌더링 적용
                             <img 
                               src={`https://drive.google.com/thumbnail?id=${option.driveId}`} 
                               onError={(e) => window.handleImgError(e.target, option.driveId)}
